@@ -15,6 +15,7 @@ This repository uses **Ultracite** with Next.js 16 + React 19.
 - **Build**: `bun build`
 - **Start**: `bun start`
 - **Typecheck**: `bun run typecheck` (runs `bun run typegen` via `pretypecheck`)
+- **Test**: `bun test` / `bun run test`
 - **Generate typed routes**: `bun run typegen`
 - **Format code**: `bun ultracite fix`
 - **Check for issues**: `bun ultracite check`
@@ -101,10 +102,12 @@ Write code that is accessible, performant, type-safe, and maintainable.
   - `bun install --frozen-lockfile`
   - `bun ultracite check`
   - `bun run typecheck`
+  - `bun test`
   - `bun run build`
 - Local equivalent:
   - `bun ultracite check`
   - `bun run typecheck`
+  - `bun test`
   - `bun run build`
 
 ## Framework-Specific Guidance
@@ -124,8 +127,9 @@ Write code that is accessible, performant, type-safe, and maintainable.
 
 ### Testing Notes
 
-- No test framework is configured in this starter yet.
-- For new test work, keep test cases in standard `it()`/`test()` blocks with `async`/`await`.
+- Bun built-in test runner: `import { test, expect, describe } from "bun:test"`.
+- File patterns: `*.test.ts`, `*.spec.ts`, `*_test.ts`, `*_spec.ts`.
+- Tests live in `src/tests/unit/`, mirroring source structure (e.g. `src/tests/unit/json-ld/utils.test.ts`).
 
 ## When Oxlint + Oxfmt Can't Help
 
