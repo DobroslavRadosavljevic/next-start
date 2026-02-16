@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { eden } from "@/api/eden";
-import { ROUTE_PATHS, SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
 
 export const HeroSection = async () => {
   const [helloResponse, mirrorResponse] = await Promise.all([
@@ -26,29 +26,6 @@ export const HeroSection = async () => {
           POST <code>/api</code> with <code>{'{ name: "Eden" }'}</code>:{" "}
           <code>{mirrorResponse.data?.name ?? "No response"}</code>
         </p>
-      </div>
-      <p className="text-sm text-zinc-500 dark:text-zinc-500">
-        Click below to test view transitions between pages.
-      </p>
-      <div className="flex flex-wrap justify-center gap-4">
-        <Link
-          href={ROUTE_PATHS.about}
-          className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
-        >
-          About →
-        </Link>
-        <Link
-          href={ROUTE_PATHS.products}
-          className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
-        >
-          Products →
-        </Link>
-        <Link
-          href={ROUTE_PATHS.contact}
-          className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
-        >
-          Contact →
-        </Link>
       </div>
       <Link
         href="https://nextjs.org/docs"

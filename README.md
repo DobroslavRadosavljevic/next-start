@@ -1,88 +1,135 @@
 # ⚡ Next Start
 
-A production-ready Next.js 16 starter with SEO defaults, modern DX, and an integrated type-safe API layer powered by Elysia + Eden.
+A production-ready **Next.js 16 + React 19** starter with **SEO defaults**, **type-safe API plumbing (Elysia + Eden)**, and **Sentry monitoring** prewired across client/server/edge runtimes. 🚀🧠🛡️
 
-## ✨ Features
+## 🆕 What Changed Recently
+
+- 🛡️ Added Sentry integration (`@sentry/nextjs`) with Next config wrapping and runtime instrumentation.
+- 🌐 Added runtime/client/server Sentry env validation via T3 Env + Zod.
+- 🧭 Simplified the app to a **single homepage route** (`/`) and removed `about/products/contact` demo routes.
+- 🗺️ Updated `robots.ts`, `sitemap.ts`, `manifest.ts`, error pages, nav/footer, and tests to match home-only routing.
+- 🤖 Added `.mcp.json` and `.cursor/mcp.json` templates for Sentry MCP connection.
+- 📄 Added `.env.example` and updated `.gitignore` to allow committing it.
+
+## ✨ Feature Set
 
 - 🚀 Next.js 16 App Router + React 19
 - 🎨 Tailwind CSS 4
+- 🧪 Type-safe API flow: Elysia server + Eden client
+- 📘 OpenAPI docs from the same Elysia instance
+- 🛡️ Sentry monitoring (client, server, edge, request errors, router transitions)
 - 📝 TypeScript + typed routes (`next typegen`)
-- 🔒 T3 Env + Zod-based env validation
-- 🔍 SEO setup: metadata, sitemap, robots, Open Graph image, JSON-LD
-- 💾 Cache Components enabled (`cacheComponents: true`)
-- 🔌 Elysia API integrated through App Router route handlers
-- 📘 OpenAPI docs via `@elysiajs/openapi`
-- 🧠 Eden typed client via `@elysiajs/eden`
-- 🛠️ Ultracite (Oxlint + Oxfmt) for formatting and linting
-- ⚡ Bun for package management and scripts
+- 🔒 T3 Env + Zod env validation
+- 🔍 SEO defaults: metadata, `sitemap.xml`, `robots.txt`, Open Graph image, JSON-LD
+- 💾 Cache Components (`cacheComponents: true`)
+- ⚡ Bun scripts + Ultracite (Oxlint + Oxfmt) + Husky/lint-staged
+
+## 🧭 Current App Shape
+
+- 🏠 UI route: `/`
+- 🔌 API route bridge: `/api/*` through `src/app/api/[[...slugs]]/route.ts`
+- 📘 OpenAPI UI: `/api/openapi`
+- 🧾 OpenAPI JSON: `/api/openapi/json`
+- 🗺️ Sitemap currently contains only homepage
+- 🤖 Robots allow `/` and point to generated sitemap
+
+## 📁 Key Files
+
+```txt
+src/
+  app/
+    page.tsx
+    layout.tsx
+    api/[[...slugs]]/route.ts
+    sitemap.ts
+    robots.ts
+    manifest.ts
+    error.tsx
+    not-found.tsx
+  server/api/elysia.ts
+  api/eden.ts
+  instrumentation.ts
+  instrumentation-client.ts
+sentry.server.config.ts
+sentry.edge.config.ts
+next.config.ts
+.env.example
+```
 
 ## 🚀 Quick Start
 
 ```bash
 bun install
+cp .env.example .env.local
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). 🎉
 
-## 🔌 Elysia API Integration
+## 🔐 Environment Variables
 
-Elysia is wired through:
+Copy values from `.env.example` and set real credentials:
 
-- 🧠 Core Elysia app: `src/server/api/elysia.ts`
-- 🌉 Next.js route bridge: `src/app/api/[[...slugs]]/route.ts` (exports `api.fetch` for all methods)
+| Variable                 | Required | Purpose                                      |
+| ------------------------ | -------- | -------------------------------------------- |
+| `NEXT_PUBLIC_SENTRY_DSN` | ✅       | Client-side Sentry DSN                       |
+| `SENTRY_ORG`             | ✅       | Sentry org slug for build plugin/source maps |
+| `SENTRY_PROJECT`         | ✅       | Sentry project slug                          |
+| `SENTRY_AUTH_TOKEN`      | ✅       | Auth token for Sentry source map upload      |
 
-Current sample endpoints:
+Also used automatically (via Vercel preset): `VERCEL_PROJECT_PRODUCTION_URL`, `VERCEL_URL`, `VERCEL_ENV`. 🌍
 
-- `GET /api` -> `"Hello Nextjs"` 👋
-- `POST /api` with body `{ "name": "..." }` -> echoes the same body 🔁
+## 🛡️ Sentry Setup Notes
 
-The route bridge exports all major HTTP methods (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `OPTIONS`, `HEAD`) through `api.fetch`.
+- `next.config.ts` is wrapped with `withSentryConfig(...)` and uses `SENTRY_ORG` + `SENTRY_PROJECT`.
+- `src/instrumentation.ts` registers runtime configs for Node/Edge and exports `onRequestError`.
+- `src/instrumentation-client.ts` initializes browser-side Sentry, replay integration, and router transition tracking.
+- `sentry.server.config.ts` and `sentry.edge.config.ts` are present and initialized.
 
-## 📘 OpenAPI
+## 🔌 API Layer (Elysia + Eden + OpenAPI)
 
-OpenAPI is enabled in the same Elysia app using `@elysiajs/openapi`.
+- 🧠 Elysia app: `src/server/api/elysia.ts`
+- 🌉 Next route bridge: `src/app/api/[[...slugs]]/route.ts`
+- ⚙️ Eden client: `src/api/eden.ts`
+
+Sample endpoints:
+
+- `GET /api` → `"Hello Nextjs"` 👋
+- `POST /api` with `{ "name": "Eden" }` → echoes payload 🔁
+
+OpenAPI is generated from the same Elysia app:
 
 - 🖥️ UI: [http://localhost:3000/api/openapi](http://localhost:3000/api/openapi)
-- 🧾 JSON spec: [http://localhost:3000/api/openapi/json](http://localhost:3000/api/openapi/json)
+- 🧾 JSON: [http://localhost:3000/api/openapi/json](http://localhost:3000/api/openapi/json)
 
-Zod schemas are mapped for OpenAPI generation using:
+## 🔍 SEO + Metadata
 
-- 🧩 `mapJsonSchema.zod = z.toJSONSchema`
-
-## 🧠 Eden Typed Client
-
-The Eden client is configured in:
-
-- 📍 `src/api/eden.ts`
-
-It uses the Next.js integration pattern:
-
-- 🖥️ Server/build time: direct in-process calls with `treaty(api).api`
-- 🌐 Browser/client time: network calls with `treaty<typeof api>(getSiteUrl()).api`
-
-Home page includes a small example call through Eden in:
-
-- `src/app/_components/page/hero-section.tsx`
+- 🏷️ Base metadata: `src/app/layout.tsx`
+- 🧩 JSON-LD helpers: `src/json-ld/schema.ts`
+- 🗺️ Sitemap: `src/app/sitemap.ts` (home only)
+- 🤖 Robots: `src/app/robots.ts`
+- 📱 Web manifest: `src/app/manifest.ts`
+- 🖼️ Open Graph image route: `src/app/opengraph-image.tsx`
 
 ## 📦 Scripts
 
-| Command               | Description                                |
-| --------------------- | ------------------------------------------ |
-| `bun dev`             | 🟢 Start development server                |
-| `bun build`           | 📦 Build for production                    |
-| `bun start`           | 🚀 Start production server                 |
-| `bun run typegen`     | 🛤️ Generate Next.js typed routes           |
-| `bun run typecheck`   | 📝 Run TypeScript check (includes typegen) |
-| `bun ultracite fix`   | ✏️ Auto-fix formatting and lint issues     |
-| `bun ultracite check` | 🔍 Run formatting/lint checks              |
-| `bun run lint:staged` | 🧪 Run staged-file checks                  |
-| `bun run test`        | ✅ Run Bun tests                           |
-| `bun run prepare`     | 🪝 Install Husky hooks                     |
+| Command               | Description                             |
+| --------------------- | --------------------------------------- |
+| `bun dev`             | 🟢 Start dev server                     |
+| `bun build`           | 📦 Build production bundle              |
+| `bun start`           | 🚀 Run production server                |
+| `bun run lint`        | 🔍 Run Ultracite checks                 |
+| `bun run format`      | ✏️ Auto-fix formatting/lint issues      |
+| `bun run typegen`     | 🛤️ Generate typed routes                |
+| `bun run typecheck`   | 🧠 Run type checks (includes `typegen`) |
+| `bun run test`        | ✅ Run tests                            |
+| `bun run test:watch`  | 👀 Run tests in watch mode              |
+| `bun run lint:staged` | 🧪 Run staged-file checks               |
+| `bun run prepare`     | 🪝 Install Husky hooks                  |
 
-## ✅ Quality Gates
+## ✅ CI Quality Gate
 
-CI (`.github/workflows/ci.yml`) runs:
+GitHub Actions (`.github/workflows/ci.yml`) runs:
 
 1. `bun install --frozen-lockfile`
 2. `bun ultracite check`
@@ -90,22 +137,32 @@ CI (`.github/workflows/ci.yml`) runs:
 4. `bun test`
 5. `bun run build`
 
-## 🛠️ Customization
+## 🤖 MCP Config (Optional)
 
-1. 📝 Edit metadata constants in `src/constants/metadata.ts`
-2. 🔒 Add env vars in `src/config/env.ts` and local values in `.env.local`
-3. 🗺️ Extend `src/app/sitemap.ts` and `src/app/robots.ts`
-4. 🧭 Adjust navigation in `src/app/_components/layout/nav.tsx`
-5. 🧠 Expand Elysia routes/schemas in `src/server/api/elysia.ts`
-6. 🌉 Adjust API bridge exports in `src/app/api/[[...slugs]]/route.ts` if API mounting changes
+Two config templates are included for Sentry MCP wiring:
 
-## 🔗 Links
+- `.mcp.json`
+- `.cursor/mcp.json`
 
-- 📘 [Next.js docs](https://nextjs.org/docs)
-- 🔌 [Elysia Next.js integration](https://elysiajs.com/integrations/nextjs.html)
-- 📘 [Elysia OpenAPI pattern](https://elysiajs.com/patterns/openapi.html)
-- 🧠 [Eden installation](https://elysiajs.com/eden/installation.html)
-- 🛠️ [Ultracite / AGENTS instructions](./AGENTS.md)
+Both point to: `https://mcp.sentry.dev/mcp/<org>/<project>` (replace placeholders). 🔧
+
+## 🛠️ Customization Checklist
+
+1. 🏷️ Update product/site strings in `src/constants/metadata.ts`.
+2. 🎨 Adapt homepage UI in `src/app/_components/page/hero-section.tsx`.
+3. 🧭 Expand nav/footer in `src/app/_components/layout/nav.tsx` and `src/app/_components/layout/footer.tsx`.
+4. 🔌 Add API endpoints/schemas in `src/server/api/elysia.ts`.
+5. 🗺️ If adding routes, also update `sitemap.ts`, metadata, JSON-LD, and related tests.
+6. 🛡️ Tune Sentry sampling/replay settings for production.
+
+## 🔗 Useful Links
+
+- 📘 [Next.js Docs](https://nextjs.org/docs)
+- 🔌 [Elysia Next.js Integration](https://elysiajs.com/integrations/nextjs.html)
+- 📘 [Elysia OpenAPI Pattern](https://elysiajs.com/patterns/openapi.html)
+- 🧠 [Eden Docs](https://elysiajs.com/eden/installation.html)
+- 🛡️ [Sentry for Next.js](https://docs.sentry.io/platforms/javascript/guides/nextjs/)
+- 🛠️ [Project Instructions (`AGENTS.md`)](./AGENTS.md)
 
 ## 📄 License
 

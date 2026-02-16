@@ -2,14 +2,10 @@ import type { Route } from "next";
 
 import Link from "next/link";
 
-import { ROUTE_PATHS } from "@/constants/metadata";
-
-const pages = [
-  { href: ROUTE_PATHS.home, label: "Home" },
-  { href: ROUTE_PATHS.about, label: "About" },
-  { href: ROUTE_PATHS.products, label: "Products" },
-  { href: ROUTE_PATHS.contact, label: "Contact" },
-] as const satisfies readonly { href: Route; label: string }[];
+const pages = [{ href: "/", label: "Home" }] as const satisfies readonly {
+  href: Route;
+  label: string;
+}[];
 
 export const Nav = () => (
   <nav
@@ -18,7 +14,7 @@ export const Nav = () => (
   >
     <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
       <Link
-        href={ROUTE_PATHS.home}
+        href="/"
         className="text-lg font-semibold tracking-tight text-foreground"
       >
         Next Start

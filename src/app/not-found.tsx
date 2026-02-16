@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { ROUTE_PATHS } from "@/constants/metadata";
-
 export default function NotFound() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
@@ -11,7 +9,7 @@ export default function NotFound() {
           Could not find the requested resource.
         </p>
         <Link
-          href={ROUTE_PATHS.home}
+          href="/"
           className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
         >
           Return Home

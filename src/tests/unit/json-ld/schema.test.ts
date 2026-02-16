@@ -1,6 +1,5 @@
 import { describe, expect, test } from "bun:test";
 
-import { ROUTE_PATHS } from "@/constants/metadata";
 import {
   buildBreadcrumbJsonLd,
   buildSiteJsonLd,
@@ -26,9 +25,9 @@ describe("JSON-LD identifiers", () => {
   test("matches WebSite @id with WebPage isPartOf @id", () => {
     const siteSchema = buildSiteJsonLd();
     const pageSchema = buildWebPageJsonLd({
-      pageTitle: "About | Next Start",
-      pageDescription: "About page",
-      pagePath: ROUTE_PATHS.about,
+      pageTitle: "Home | Next Start",
+      pageDescription: "Home page",
+      pagePath: "/",
     });
 
     const siteGraph = siteSchema["@graph"] as unknown as readonly Record<

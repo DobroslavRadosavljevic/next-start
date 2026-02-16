@@ -3,8 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 
-import { ROUTE_PATHS } from "@/constants/metadata";
-
 export default function Error({
   error,
 }: {
@@ -22,7 +20,7 @@ export default function Error({
   }, [router]);
 
   const handleGoHome = useCallback(() => {
-    router.push(ROUTE_PATHS.home);
+    router.push("/");
   }, [router]);
 
   return (
