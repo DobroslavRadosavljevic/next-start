@@ -70,7 +70,7 @@ src/
 │   ├── nav.tsx             # Fixed header nav (Home, About, Products, Contact)
 │   └── json-ld.tsx        # JSON-LD script injector
 ├── config/
-│   ├── env.ts              # T3 Env (NEXT_PUBLIC_SITE_URL)
+│   ├── env.ts              # T3 Env + getSiteUrl (Vercel vars)
 │   └── fonts.ts            # Geist Sans + Mono (next/font/google)
 ├── constants/
 │   └── metadata.ts         # SITE_NAME, SITE_DESCRIPTION, page constants

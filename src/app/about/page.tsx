@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/json-ld";
-import { env } from "@/config/env";
+import { getSiteUrl } from "@/config/env";
 import {
   PAGE_DESCRIPTIONS,
   PAGE_TITLES,
@@ -19,11 +19,11 @@ const pageDescription = PAGE_DESCRIPTIONS.about;
 export const metadata: Metadata = {
   title: pageTitle,
   description: pageDescription,
-  alternates: { canonical: `${env.NEXT_PUBLIC_SITE_URL}${pagePath}` },
+  alternates: { canonical: `${getSiteUrl()}${pagePath}` },
   openGraph: {
     title: pageTitle,
     description: pageDescription,
-    url: `${env.NEXT_PUBLIC_SITE_URL}${pagePath}`,
+    url: `${getSiteUrl()}${pagePath}`,
     siteName: SITE_NAME,
     locale: "en_US",
     type: "website",

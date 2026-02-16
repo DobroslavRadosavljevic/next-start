@@ -90,7 +90,7 @@ Write code that is accessible, performant, type-safe, and maintainable.
   - `ROUTE_PATHS` uses `Record<RouteName, Route>` and should be used for internal links.
   - `Page` metadata objects (`PAGE_TITLES`, `PAGE_DESCRIPTIONS`) should be updated from there.
 - Use `ROUTE_PATHS` in UI and server files instead of hardcoded route strings.
-- Use `NEXT_PUBLIC_SITE_URL` from `src/config/env.ts` for canonical URL construction.
+- Use `getSiteUrl()` from `src/config/env.ts` for canonical URL construction (Vercel vars or localhost).
 - Use font variables from `src/config/fonts.ts` (Geist Sans + Geist Mono) via `bodyFontClass`.
 - Keep JSON-LD helpers in `src/json-ld/schema.ts` and script output in `src/components/json-ld.tsx`.
 

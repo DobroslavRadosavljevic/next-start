@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ViewTransition } from "react";
 
 import { JsonLd } from "@/components/json-ld";
-import { env } from "@/config/env";
+import { getSiteUrl } from "@/config/env";
 import { bodyFontClass } from "@/config/fonts";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
 import { buildSiteJsonLd } from "@/json-ld/schema";
@@ -15,7 +15,7 @@ import { Header } from "./_components/layout/header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     template: `%s | ${SITE_NAME}`,
     default: SITE_NAME,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    url: env.NEXT_PUBLIC_SITE_URL,
+    url: getSiteUrl(),
     siteName: SITE_NAME,
     locale: "en_US",
     type: "website",

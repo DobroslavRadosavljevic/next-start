@@ -1,7 +1,7 @@
 import type { Route } from "next";
 import type { Graph } from "schema-dts";
 
-import { env } from "@/config/env";
+import { getSiteUrl } from "@/config/env";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
 
 interface WebPageSchemaParams {
@@ -28,7 +28,7 @@ const normalizePath = (path: string): string =>
  * Uses @graph to link Organization as publisher of WebSite.
  */
 export const buildSiteJsonLd = (): Graph => {
-  const siteUrl = env.NEXT_PUBLIC_SITE_URL;
+  const siteUrl = getSiteUrl();
   const organizationId = `${siteUrl}/#organization`;
   const websiteId = `${siteUrl}/#website`;
 
@@ -60,7 +60,7 @@ export const buildWebPageJsonLd = ({
   pagePath,
   canonicalUrl,
 }: WebPageSchemaParams): Graph => {
-  const siteUrl = env.NEXT_PUBLIC_SITE_URL;
+  const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}${normalizePath(pagePath)}`;
 
   return {
@@ -82,7 +82,7 @@ export const buildWebPageJsonLd = ({
 export const buildBreadcrumbJsonLd = ({
   items,
 }: BreadcrumbSchemaParams): Graph => {
-  const siteUrl = env.NEXT_PUBLIC_SITE_URL;
+  const siteUrl = getSiteUrl();
 
   return {
     "@context": "https://schema.org",
