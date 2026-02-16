@@ -1,0 +1,59 @@
+import type { Metadata } from "next";
+
+import { JsonLd } from "@/components/json-ld";
+import { env } from "@/config/env";
+import {
+  PAGE_DESCRIPTIONS,
+  PAGE_TITLES,
+  ROUTE_PATHS,
+  SITE_NAME,
+} from "@/constants/metadata";
+import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from "@/json-ld/schema";
+
+import { ContactContent } from "./_components/page/contact-content";
+
+const pagePath = ROUTE_PATHS.contact;
+const pageTitle = `${PAGE_TITLES.contact} | ${SITE_NAME}`;
+const pageDescription = PAGE_DESCRIPTIONS.contact;
+
+export const metadata: Metadata = {
+  title: pageTitle,
+  description: pageDescription,
+  alternates: { canonical: `${env.NEXT_PUBLIC_SITE_URL}${pagePath}` },
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    url: `${env.NEXT_PUBLIC_SITE_URL}${pagePath}`,
+    siteName: SITE_NAME,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
+  },
+};
+
+export default function Contact() {
+  return (
+    <>
+      <JsonLd
+        data={buildWebPageJsonLd({
+          pageTitle,
+          pageDescription,
+          pagePath,
+        })}
+      />
+      <JsonLd
+        data={buildBreadcrumbJsonLd({
+          items: [
+            { name: SITE_NAME, path: ROUTE_PATHS.home },
+            { name: PAGE_TITLES.contact, path: pagePath },
+          ],
+        })}
+      />
+      <ContactContent />
+    </>
+  );
+}

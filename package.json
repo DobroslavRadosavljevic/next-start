@@ -1,24 +1,74 @@
 {
   "name": "next-start",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.1",
+  "private": false,
+  "keywords": [
+    "next",
+    "nextjs",
+    "react",
+    "starter",
+    "tailwindcss",
+    "template",
+    "typescript"
+  ],
+  "homepage": "https://github.com/DobroslavRadosavljevic/next-start#readme",
+  "bugs": {
+    "url": "https://github.com/DobroslavRadosavljevic/next-start/issues"
+  },
+  "license": "MIT",
+  "author": "Dobroslav Radosavljevic",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DobroslavRadosavljevic/next-start.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/DobroslavRadosavljevic"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "ultracite check",
+    "prepare": "husky",
+    "lint:staged": "bun lint-staged",
+    "format": "ultracite fix",
+    "typegen": "next typegen",
+    "pretypecheck": "bun run typegen",
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
+    "@t3-oss/env-nextjs": "^0.13.10",
+    "@vercel/analytics": "^1.6.1",
+    "@vercel/speed-insights": "^1.3.1",
     "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "schema-dts": "^1.1.5",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@tailwindcss/postcss": "4.1.18",
+    "@types/node": "25.2.3",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260215.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "oxfmt": "0.32.0",
+    "oxlint": "1.47.0",
+    "tailwindcss": "4.1.18",
+    "typescript": "5.9.3",
+    "ultracite": "7.2.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,md,yml,yaml}": [
+      "bun ultracite fix",
+      "bun ultracite check"
+    ]
   },
   "ignoreScripts": [
     "sharp",
