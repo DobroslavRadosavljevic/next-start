@@ -1,7 +1,4 @@
-import type { Metadata } from "next";
-
 import { JsonLd } from "@/components/json-ld";
-import { getSiteUrl } from "@/config/env";
 import {
   PAGE_DESCRIPTIONS,
   PAGE_TITLES,
@@ -9,6 +6,7 @@ import {
   SITE_NAME,
 } from "@/constants/metadata";
 import { buildBreadcrumbJsonLd, buildWebPageJsonLd } from "@/json-ld/schema";
+import { buildRouteMetadata } from "@/utils/metadata/route";
 
 import { ProductsContent } from "./_components/page/products-content";
 
@@ -16,24 +14,11 @@ const pagePath = ROUTE_PATHS.products;
 const pageTitle = `${PAGE_TITLES.products} | ${SITE_NAME}`;
 const pageDescription = PAGE_DESCRIPTIONS.products;
 
-export const metadata: Metadata = {
-  title: pageTitle,
-  description: pageDescription,
-  alternates: { canonical: `${getSiteUrl()}${pagePath}` },
-  openGraph: {
-    title: pageTitle,
-    description: pageDescription,
-    url: `${getSiteUrl()}${pagePath}`,
-    siteName: SITE_NAME,
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: pageTitle,
-    description: pageDescription,
-  },
-};
+export const metadata = buildRouteMetadata({
+  pageTitle,
+  pageDescription,
+  pagePath,
+});
 
 export default function Products() {
   return (

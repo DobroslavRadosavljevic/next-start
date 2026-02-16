@@ -29,8 +29,8 @@ const normalizePath = (path: string): string =>
  */
 export const buildSiteJsonLd = (): Graph => {
   const siteUrl = getSiteUrl();
-  const organizationId = `${siteUrl}/#organization`;
-  const websiteId = `${siteUrl}/#website`;
+  const organizationId = `${siteUrl}#/schema/organization`;
+  const websiteId = `${siteUrl}#/schema/website`;
 
   return {
     "@context": "https://schema.org",

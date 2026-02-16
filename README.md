@@ -39,46 +39,6 @@ bun dev
 | `bun typegen`         | 🛤️ Generate Next.js route types         |
 | `bun run prepare`     | 🪝 Install Husky Git hooks              |
 
-## 📁 Project Structure
-
-```
-src/
-├── app/
-│   ├── _components/
-│   │   ├── layout/         # Header, footer — imported by root layout
-│   │   └── page/           # Homepage-only components (e.g. hero-section)
-│   ├── about/
-│   │   ├── _components/page/  # About page components
-│   │   └── page.tsx
-│   ├── products/
-│   │   ├── _components/page/  # Products page components
-│   │   └── page.tsx
-│   ├── contact/
-│   │   ├── _components/page/  # Contact page components
-│   │   └── page.tsx
-│   ├── loading.tsx         # Global loading UI (skeleton)
-│   ├── error.tsx           # Route-level error boundary (retry / go home)
-│   ├── global-error.tsx    # Root error boundary (fallback HTML)
-│   ├── not-found.tsx       # 404 page
-│   ├── manifest.ts         # PWA manifest
-│   ├── robots.ts           # robots.txt
-│   ├── sitemap.ts          # sitemap.xml
-│   ├── opengraph-image.tsx # Dynamic OG image (1200×630)
-│   ├── layout.tsx          # Root layout (metadata, JSON-LD, ViewTransition, Analytics)
-│   └── globals.css         # Tailwind + CSS vars (light/dark)
-├── components/
-│   ├── nav.tsx             # Fixed header nav (Home, About, Products, Contact)
-│   └── json-ld.tsx        # JSON-LD script injector
-├── config/
-│   ├── env.ts              # T3 Env + getSiteUrl (Vercel vars)
-│   └── fonts.ts            # Geist Sans + Mono (next/font/google)
-├── constants/
-│   └── metadata.ts         # SITE_NAME, SITE_DESCRIPTION, page constants
-└── json-ld/
-    ├── schema.ts           # buildSiteJsonLd + buildWebPageJsonLd + buildBreadcrumbJsonLd
-    └── utils.ts            # serializeJsonLd (XSS-safe)
-```
-
 ## 🔧 Next.js Config Highlights
 
 - 💾 `cacheComponents: true` — Cache Components (PPR)
