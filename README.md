@@ -1,20 +1,20 @@
 # ⚡ Next Start
 
-A modern Next.js starter template — production-ready, type-safe, and SEO-friendly.
+A production-ready Next.js 16 starter with SEO defaults, modern DX, and an integrated type-safe API layer powered by Elysia + Eden.
 
 ## ✨ Features
 
-- 🚀 **Next.js 16** — App Router, React 19
-- 🎨 **Tailwind CSS 4** — Utility-first styling with `@theme inline` and CSS variables
-- 📝 **TypeScript** — Full type safety
-- 🔒 **T3 Env** — Validated env vars with Zod (extends Vercel preset)
-- 🛤️ **Typed routes** — `next typegen` for route safety
-- 🔍 **SEO** — Metadata, sitemap, robots.txt, OG image, JSON-LD
-- ✨ **View Transitions** — React 19 `ViewTransition` + CSS animations (fade + slide)
-- 💾 **Cache Components** — PPR (Partial Prerendering) via `cacheComponents: true`
-- 📊 **Vercel** — Analytics and Speed Insights wired in
-- 🛠️ **Ultracite** — Oxlint + Oxfmt, zero-config quality
-- ⚡ **Bun** — Package manager
+- 🚀 Next.js 16 App Router + React 19
+- 🎨 Tailwind CSS 4
+- 📝 TypeScript + typed routes (`next typegen`)
+- 🔒 T3 Env + Zod-based env validation
+- 🔍 SEO setup: metadata, sitemap, robots, Open Graph image, JSON-LD
+- 💾 Cache Components enabled (`cacheComponents: true`)
+- 🔌 Elysia API integrated through App Router route handlers
+- 📘 OpenAPI docs via `@elysiajs/openapi`
+- 🧠 Eden typed client via `@elysiajs/eden`
+- 🛠️ Ultracite (Oxlint + Oxfmt) for formatting and linting
+- ⚡ Bun for package management and scripts
 
 ## 🚀 Quick Start
 
@@ -23,57 +23,90 @@ bun install
 bun dev
 ```
 
-🌐 Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000).
+
+## 🔌 Elysia API Integration
+
+Elysia is wired through:
+
+- 🧠 Core Elysia app: `src/server/api/elysia.ts`
+- 🌉 Next.js route bridge: `src/app/api/[[...slugs]]/route.ts` (exports `api.fetch` for all methods)
+
+Current sample endpoints:
+
+- `GET /api` -> `"Hello Nextjs"` 👋
+- `POST /api` with body `{ "name": "..." }` -> echoes the same body 🔁
+
+The route bridge exports all major HTTP methods (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `OPTIONS`, `HEAD`) through `api.fetch`.
+
+## 📘 OpenAPI
+
+OpenAPI is enabled in the same Elysia app using `@elysiajs/openapi`.
+
+- 🖥️ UI: [http://localhost:3000/api/openapi](http://localhost:3000/api/openapi)
+- 🧾 JSON spec: [http://localhost:3000/api/openapi/json](http://localhost:3000/api/openapi/json)
+
+Zod schemas are mapped for OpenAPI generation using:
+
+- 🧩 `mapJsonSchema.zod = z.toJSONSchema`
+
+## 🧠 Eden Typed Client
+
+The Eden client is configured in:
+
+- 📍 `src/api/eden.ts`
+
+It uses the Next.js integration pattern:
+
+- 🖥️ Server/build time: direct in-process calls with `treaty(api).api`
+- 🌐 Browser/client time: network calls with `treaty<typeof api>(getSiteUrl()).api`
+
+Home page includes a small example call through Eden in:
+
+- `src/app/_components/page/hero-section.tsx`
 
 ## 📦 Scripts
 
-| Command               | Description                             |
-| --------------------- | --------------------------------------- |
-| `bun dev`             | 🟢 Start dev server                     |
-| `bun build`           | 📦 Production build                     |
-| `bun start`           | 🚀 Start production server              |
-| `bun ultracite fix`   | ✏️ Format & fix lint issues             |
-| `bun ultracite check` | 🔍 Check code quality (CI lint)         |
-| `bun run lint:staged` | 🧪 Run staged checks via lint-staged    |
-| `bun typecheck`       | 📝 Run TypeScript check (incl. typegen) |
-| `bun typegen`         | 🛤️ Generate Next.js route types         |
-| `bun run prepare`     | 🪝 Install Husky Git hooks              |
+| Command               | Description                                |
+| --------------------- | ------------------------------------------ |
+| `bun dev`             | 🟢 Start development server                |
+| `bun build`           | 📦 Build for production                    |
+| `bun start`           | 🚀 Start production server                 |
+| `bun run typegen`     | 🛤️ Generate Next.js typed routes           |
+| `bun run typecheck`   | 📝 Run TypeScript check (includes typegen) |
+| `bun ultracite fix`   | ✏️ Auto-fix formatting and lint issues     |
+| `bun ultracite check` | 🔍 Run formatting/lint checks              |
+| `bun run lint:staged` | 🧪 Run staged-file checks                  |
+| `bun run test`        | ✅ Run Bun tests                           |
+| `bun run prepare`     | 🪝 Install Husky hooks                     |
 
-## 🔧 Next.js Config Highlights
+## ✅ Quality Gates
 
-- 💾 `cacheComponents: true` — Cache Components (PPR)
-- 🛤️ `typedRoutes: true` — Type-safe routing
-- ✨ `experimental.viewTransition: true`
-- 🔐 `experimental.authInterrupts: true` — `forbidden()` / `unauthorized()`
-- ⏱️ `experimental.staleTimes` — Router cache tuning
-- 🧹 `compiler.removeConsole` in production
-- 🙈 `poweredByHeader: false`
+CI (`.github/workflows/ci.yml`) runs:
 
-## 🎨 Theming
-
-- 🎨 `globals.css` defines `--background` and `--foreground`
-- 🔗 `@theme inline` maps them to Tailwind `bg-background`, `text-foreground`
-- 🌙 `prefers-color-scheme: dark` for system dark mode
+1. `bun install --frozen-lockfile`
+2. `bun ultracite check`
+3. `bun run typecheck`
+4. `bun test`
+5. `bun run build`
 
 ## 🛠️ Customization
 
-1. 📝 **Metadata** — Edit `src/constants/metadata.ts` (site + route metadata constants)
-2. 🔒 **Env vars** — Add entries in `src/config/env.ts`, create `.env.local` (e.g. `NEXT_PUBLIC_SITE_URL`)
-3. 📱 **Manifest** — PWA config in `src/app/manifest.ts`
-4. 🗺️ **Sitemap** — Extend `src/app/sitemap.ts` with more routes
-5. 🧭 **Nav** — Update `pages` array in `src/components/nav.tsx`
-
-## 📄 License
-
-📜 MIT — use it for anything. Contributions welcome.
-
-## 🔗 CI
-
-⚙️ GitHub Actions workflow (`.github/workflows/ci.yml`): install → typecheck → lint → build on push/PR to `main`.
+1. 📝 Edit metadata constants in `src/constants/metadata.ts`
+2. 🔒 Add env vars in `src/config/env.ts` and local values in `.env.local`
+3. 🗺️ Extend `src/app/sitemap.ts` and `src/app/robots.ts`
+4. 🧭 Adjust navigation in `src/app/_components/layout/nav.tsx`
+5. 🧠 Expand Elysia routes/schemas in `src/server/api/elysia.ts`
+6. 🌉 Adjust API bridge exports in `src/app/api/[[...slugs]]/route.ts` if API mounting changes
 
 ## 🔗 Links
 
-- 📘 [Next.js Docs](https://nextjs.org/docs)
-- 🎨 [Tailwind CSS](https://tailwindcss.com/docs)
-- 🔒 [T3 Env](https://env.t3.gg)
-- 🛠️ [Ultracite / AGENTS.md](./AGENTS.md) — Code standards & Ultracite usage
+- 📘 [Next.js docs](https://nextjs.org/docs)
+- 🔌 [Elysia Next.js integration](https://elysiajs.com/integrations/nextjs.html)
+- 📘 [Elysia OpenAPI pattern](https://elysiajs.com/patterns/openapi.html)
+- 🧠 [Eden installation](https://elysiajs.com/eden/installation.html)
+- 🛠️ [Ultracite / AGENTS instructions](./AGENTS.md)
+
+## 📄 License
+
+MIT

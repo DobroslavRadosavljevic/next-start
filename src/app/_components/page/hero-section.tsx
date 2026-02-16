@@ -1,43 +1,69 @@
 import Link from "next/link";
 
+import { eden } from "@/api/eden";
 import { ROUTE_PATHS, SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
 
-export const HeroSection = () => (
-  <div className="flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center gap-8 px-6 text-center">
-    <h1 className="text-3xl font-semibold tracking-tight">{SITE_NAME}</h1>
-    <p className="max-w-md text-lg text-zinc-600 dark:text-zinc-400">
-      {SITE_DESCRIPTION}
-    </p>
-    <p className="text-sm text-zinc-500 dark:text-zinc-500">
-      Click below to test view transitions between pages.
-    </p>
-    <div className="flex flex-wrap justify-center gap-4">
+export const HeroSection = async () => {
+  const [helloResponse, mirrorResponse] = await Promise.all([
+    eden.get(),
+    eden.post({
+      name: "Eden",
+    }),
+  ]);
+
+  return (
+    <div className="flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center gap-8 px-6 text-center">
+      <h1 className="text-3xl font-semibold tracking-tight">{SITE_NAME}</h1>
+      <p className="max-w-md text-lg text-zinc-600 dark:text-zinc-400">
+        {SITE_DESCRIPTION}
+      </p>
+      <div className="max-w-md rounded-xl border border-zinc-300/70 bg-zinc-100/70 px-4 py-3 text-left text-sm dark:border-zinc-700 dark:bg-zinc-900/60">
+        <p className="font-medium text-foreground">Eden Example</p>
+        <p className="mt-1 text-zinc-700 dark:text-zinc-300">
+          GET <code>/api</code>: <code>{helloResponse.data}</code>
+        </p>
+        <p className="mt-1 text-zinc-700 dark:text-zinc-300">
+          POST <code>/api</code> with <code>{'{ name: "Eden" }'}</code>:{" "}
+          <code>{mirrorResponse.data?.name ?? "No response"}</code>
+        </p>
+      </div>
+      <p className="text-sm text-zinc-500 dark:text-zinc-500">
+        Click below to test view transitions between pages.
+      </p>
+      <div className="flex flex-wrap justify-center gap-4">
+        <Link
+          href={ROUTE_PATHS.about}
+          className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
+        >
+          About →
+        </Link>
+        <Link
+          href={ROUTE_PATHS.products}
+          className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
+        >
+          Products →
+        </Link>
+        <Link
+          href={ROUTE_PATHS.contact}
+          className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
+        >
+          Contact →
+        </Link>
+      </div>
       <Link
-        href={ROUTE_PATHS.about}
-        className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
+        href="https://nextjs.org/docs"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sm text-zinc-500 underline hover:text-foreground"
       >
-        About →
+        Next.js docs
       </Link>
       <Link
-        href={ROUTE_PATHS.products}
-        className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
+        href="/api/openapi"
+        className="text-sm text-zinc-500 underline hover:text-foreground"
       >
-        Products →
-      </Link>
-      <Link
-        href={ROUTE_PATHS.contact}
-        className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
-      >
-        Contact →
+        OpenAPI docs
       </Link>
     </div>
-    <Link
-      href="https://nextjs.org/docs"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-sm text-zinc-500 underline hover:text-foreground"
-    >
-      Next.js docs
-    </Link>
-  </div>
-);
+  );
+};
