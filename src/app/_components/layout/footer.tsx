@@ -6,14 +6,14 @@ export const Footer = () => (
       <div>
         <Link
           href="/"
-          className="text-sm font-semibold tracking-tight text-foreground"
+          className="text-foreground text-sm font-semibold tracking-tight"
         >
           Next Start
         </Link>
-        <p className="mt-2 text-sm text-zinc-500">© 2025 Next Start</p>
+        <p className="mt-2 text-sm text-zinc-500">© 2026 Next Start</p>
       </div>
       <div>
-        <h3 className="text-sm font-medium text-foreground">Connect</h3>
+        <h3 className="text-foreground text-sm font-medium">Connect</h3>
         <p className="mt-2 text-sm text-zinc-500">Follow us for updates.</p>
       </div>
     </div>

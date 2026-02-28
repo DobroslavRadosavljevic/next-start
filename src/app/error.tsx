@@ -24,7 +24,7 @@ export default function Error({
   }, [router]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
+    <div className="bg-background text-foreground flex min-h-screen items-center justify-center">
       <div className="flex flex-col items-center gap-6 text-center">
         <h1 className="text-2xl font-semibold">Something went wrong</h1>
         <p className="max-w-md text-zinc-600 dark:text-zinc-400">
@@ -34,14 +34,14 @@ export default function Error({
           <button
             type="button"
             onClick={handleRetry}
-            className="rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90"
+            className="bg-foreground text-background rounded-full px-5 py-3 text-sm font-medium transition-colors hover:opacity-90"
           >
             Try again
           </button>
           <button
             type="button"
             onClick={handleGoHome}
-            className="rounded-full border border-foreground px-5 py-3 text-sm font-medium transition-colors hover:bg-foreground/10"
+            className="border-foreground hover:bg-foreground/10 rounded-full border px-5 py-3 text-sm font-medium transition-colors"
           >
             Go to homepage
           </button>

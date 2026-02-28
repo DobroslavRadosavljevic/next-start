@@ -7,7 +7,8 @@ A production-ready **Next.js 16 + React 19** starter with **SEO defaults**, **ty
 - 🛡️ Added Sentry integration (`@sentry/nextjs`) with Next config wrapping and runtime instrumentation.
 - 🌐 Added runtime/client/server Sentry env validation via T3 Env + Zod.
 - 🧭 Simplified the app to a **single homepage route** (`/`) and removed `about/products/contact` demo routes.
-- 🗺️ Updated `robots.ts`, `sitemap.ts`, `manifest.ts`, error pages, nav/footer, and tests to match home-only routing.
+- 🗺️ Updated `robots.ts`, `sitemap.ts`, `manifest.ts`, and error pages to match home-only routing.
+- 🧪 Added a Bun smoke test for the Elysia API route.
 - 🤖 Added `.mcp.json` and `.cursor/mcp.json` templates for Sentry MCP connection.
 - 📄 Added `.env.example` and updated `.gitignore` to allow committing it.
 
@@ -20,7 +21,7 @@ A production-ready **Next.js 16 + React 19** starter with **SEO defaults**, **ty
 - 🛡️ Sentry monitoring (client, server, edge, request errors, router transitions)
 - 📝 TypeScript + typed routes (`next typegen`)
 - 🔒 T3 Env + Zod env validation
-- 🔍 SEO defaults: metadata, `sitemap.xml`, `robots.txt`, Open Graph image, JSON-LD
+- 🔍 SEO defaults: metadata, `sitemap.xml`, `robots.txt`, Open Graph image
 - 💾 Cache Components (`cacheComponents: true`)
 - ⚡ Bun scripts + Ultracite (Oxlint + Oxfmt) + Husky/lint-staged
 
@@ -48,6 +49,7 @@ src/
     not-found.tsx
   server/api/elysia.ts
   api/eden.ts
+  tests/unit/api-smoke.test.ts
   instrumentation.ts
   instrumentation-client.ts
 sentry.server.config.ts
@@ -105,7 +107,6 @@ OpenAPI is generated from the same Elysia app:
 ## 🔍 SEO + Metadata
 
 - 🏷️ Base metadata: `src/app/layout.tsx`
-- 🧩 JSON-LD helpers: `src/json-ld/schema.ts`
 - 🗺️ Sitemap: `src/app/sitemap.ts` (home only)
 - 🤖 Robots: `src/app/robots.ts`
 - 📱 Web manifest: `src/app/manifest.ts`
@@ -137,6 +138,11 @@ GitHub Actions (`.github/workflows/ci.yml`) runs:
 4. `bun test`
 5. `bun run build`
 
+## 🧪 Testing
+
+- ✅ Bun test preload is configured via `bunfig.toml` and `src/tests/setup.ts`.
+- ✅ Current smoke coverage: `src/tests/unit/api-smoke.test.ts` (`GET /api`).
+
 ## 🤖 MCP Config (Optional)
 
 Two config templates are included for Sentry MCP wiring:
@@ -152,7 +158,7 @@ Both point to: `https://mcp.sentry.dev/mcp/<org>/<project>` (replace placeholder
 2. 🎨 Adapt homepage UI in `src/app/_components/page/hero-section.tsx`.
 3. 🧭 Expand nav/footer in `src/app/_components/layout/nav.tsx` and `src/app/_components/layout/footer.tsx`.
 4. 🔌 Add API endpoints/schemas in `src/server/api/elysia.ts`.
-5. 🗺️ If adding routes, also update `sitemap.ts`, metadata, JSON-LD, and related tests.
+5. 🗺️ If adding routes, also update `sitemap.ts`, metadata, and related tests.
 6. 🛡️ Tune Sentry sampling/replay settings for production.
 
 ## 🔗 Useful Links

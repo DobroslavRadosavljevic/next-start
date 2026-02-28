@@ -18,7 +18,7 @@ export const HeroSection = async () => {
         {SITE_DESCRIPTION}
       </p>
       <div className="max-w-md rounded-xl border border-zinc-300/70 bg-zinc-100/70 px-4 py-3 text-left text-sm dark:border-zinc-700 dark:bg-zinc-900/60">
-        <p className="font-medium text-foreground">Eden Example</p>
+        <p className="text-foreground font-medium">Eden Example</p>
         <p className="mt-1 text-zinc-700 dark:text-zinc-300">
           GET <code>/api</code>: <code>{helloResponse.data}</code>
         </p>
@@ -31,13 +31,13 @@ export const HeroSection = async () => {
         href="https://nextjs.org/docs"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-sm text-zinc-500 underline hover:text-foreground"
+        className="hover:text-foreground text-sm text-zinc-500 underline"
       >
         Next.js docs
       </Link>
       <Link
         href="/api/openapi"
-        className="text-sm text-zinc-500 underline hover:text-foreground"
+        className="hover:text-foreground text-sm text-zinc-500 underline"
       >
         OpenAPI docs
       </Link>
