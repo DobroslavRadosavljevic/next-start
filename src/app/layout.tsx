@@ -1,4 +1,5 @@
 import { KuzenboProvider } from "@kuzenbo/core/provider";
+import { ToastProvider } from "@kuzenbo/notifications/ui/toast";
 import { ThemeBootstrapScript, ThemeProvider } from "@kuzenbo/theme";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -49,13 +50,15 @@ export default function RootLayout({
       <body className={`${bodyFontClass}`}>
         <ThemeBootstrapScript />
         <ThemeProvider>
-          <KuzenboProvider>
-            <Header />
-            <ViewTransition>
-              <main className="min-h-screen">{children}</main>
-            </ViewTransition>
-            <Footer />
-          </KuzenboProvider>
+          <ToastProvider>
+            <KuzenboProvider>
+              <Header />
+              <ViewTransition>
+                <main className="min-h-screen">{children}</main>
+              </ViewTransition>
+              <Footer />
+            </KuzenboProvider>
+          </ToastProvider>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
