@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
-
+import { KuzenboProvider } from "@kuzenbo/core/provider";
+import { ThemeBootstrapScript, ThemeProvider } from "@kuzenbo/theme";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata } from "next";
 import { ViewTransition } from "react";
 
-import { JsonLd } from "@/components/json-ld";
 import { getSiteUrl } from "@/config/env";
 import { bodyFontClass } from "@/config/fonts";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
-import { buildSiteJsonLd } from "@/json-ld/schema";
 
 import { Footer } from "./_components/layout/footer";
 import { Header } from "./_components/layout/header";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -45,16 +45,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${bodyFontClass} antialiased bg-background text-foreground`}
-      >
-        <JsonLd data={buildSiteJsonLd()} />
-        <Header />
-        <ViewTransition>
-          <main className="min-h-screen">{children}</main>
-        </ViewTransition>
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${bodyFontClass}`}>
+        <ThemeBootstrapScript />
+        <ThemeProvider>
+          <KuzenboProvider>
+            <Header />
+            <ViewTransition>
+              <main className="min-h-screen">{children}</main>
+            </ViewTransition>
+            <Footer />
+          </KuzenboProvider>
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>
