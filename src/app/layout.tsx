@@ -50,15 +50,15 @@ export default function RootLayout({
       <body className={`${bodyFontClass}`}>
         <ThemeBootstrapScript />
         <ThemeProvider>
-          <ToastProvider>
-            <KuzenboProvider>
+          <KuzenboProvider>
+            <ToastProvider>
               <Header />
               <ViewTransition>
                 <main className="min-h-screen">{children}</main>
               </ViewTransition>
               <Footer />
-            </KuzenboProvider>
-          </ToastProvider>
+            </ToastProvider>
+          </KuzenboProvider>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
