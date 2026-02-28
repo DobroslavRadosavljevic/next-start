@@ -14,15 +14,15 @@ export const HeroSection = async () => {
   return (
     <div className="flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center gap-8 px-6 text-center">
       <h1 className="text-3xl font-semibold tracking-tight">{SITE_NAME}</h1>
-      <p className="max-w-md text-lg text-zinc-600 dark:text-zinc-400">
+      <p className="text-muted-foreground max-w-md text-lg">
         {SITE_DESCRIPTION}
       </p>
-      <div className="max-w-md rounded-xl border border-zinc-300/70 bg-zinc-100/70 px-4 py-3 text-left text-sm dark:border-zinc-700 dark:bg-zinc-900/60">
+      <div className="bg-card text-card-foreground border-border max-w-md rounded-xl border px-4 py-3 text-left text-sm">
         <p className="text-foreground font-medium">Eden Example</p>
-        <p className="mt-1 text-zinc-700 dark:text-zinc-300">
+        <p className="text-muted-foreground mt-1">
           GET <code>/api</code>: <code>{helloResponse.data}</code>
         </p>
-        <p className="mt-1 text-zinc-700 dark:text-zinc-300">
+        <p className="text-muted-foreground mt-1">
           POST <code>/api</code> with <code>{'{ name: "Eden" }'}</code>:{" "}
           <code>{mirrorResponse.data?.name ?? "No response"}</code>
         </p>
@@ -31,13 +31,13 @@ export const HeroSection = async () => {
         href="https://nextjs.org/docs"
         target="_blank"
         rel="noopener noreferrer"
-        className="hover:text-foreground text-sm text-zinc-500 underline"
+        className="text-muted-foreground hover:text-foreground text-sm underline"
       >
         Next.js docs
       </Link>
       <Link
         href="/api/openapi"
-        className="hover:text-foreground text-sm text-zinc-500 underline"
+        className="text-muted-foreground hover:text-foreground text-sm underline"
       >
         OpenAPI docs
       </Link>
