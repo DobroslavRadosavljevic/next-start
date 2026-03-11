@@ -43,6 +43,9 @@
 
 - For non-trivial tasks, split discovery across parallel agents when it helps, then consolidate findings before editing.
 - The coordinator owns final edits, integration decisions, and full verification runs.
+- Always run quality checks after the workflow is finished.
+- In multi-agent runs, subagents must not run quality checks.
+- In multi-agent runs, wait until all subagents finish their work, then have the coordinator run the final quality-check pass.
 - Do not treat this starter as a generic scaffold; inspect the current repo before changing docs or policy.
 - Prefer Bun-native commands and existing repo scripts over ad hoc equivalents.
 
@@ -82,6 +85,7 @@
 
 - CI order is: `bun install --frozen-lockfile` -> `bun ultracite check` -> `bun run typecheck` -> `bun run test` -> `bun run build`.
 - Match CI locally when verifying non-trivial work: lint -> typecheck -> test -> build.
+- Final quality checks are coordinator-owned: run them only after implementation is complete, and only after all subagents have finished in multi-agent workflows.
 - `bun run typecheck` depends on typed route generation. Use repo scripts rather than bypassing them.
 - Bun preloads `src/tests/setup.ts`; keep test env assumptions there.
 - Keep at least one committed smoke test. This starter has regressed before when Bun found zero tests.
