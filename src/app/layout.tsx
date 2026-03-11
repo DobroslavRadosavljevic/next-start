@@ -1,16 +1,19 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import type { ReactNode } from "react";
 import { ViewTransition } from "react";
 
 import { getSiteUrl } from "@/config/env";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
+import { cn } from "@/lib/utils";
 
+import "@/styles/globals.css";
 import { Footer } from "./_components/layout/footer";
 import { Header } from "./_components/layout/header";
 
-import "@/styles/globals.css";
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -43,7 +46,11 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn("font-sans", geist.variable)}
+    >
       <body>
         <Header />
         <ViewTransition>
