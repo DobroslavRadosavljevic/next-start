@@ -23,8 +23,6 @@ This repository currently uses Next.js 16 + React 19 with Bun, Ultracite, Sentry
 - **Typecheck**: `bun run typecheck` (runs `typegen` first via `pretypecheck`)
 - **Test**: `bun run test`
 - **Test (watch)**: `bun run test:watch`
-- **Run staged checks**: `bun run lint:staged`
-- **Install hooks**: `bun run prepare`
 
 Oxlint + Oxfmt handle most formatting/lint issues automatically through Ultracite.
 
@@ -127,8 +125,6 @@ Write code that is accessible, performant, type-safe, and maintainable.
 - There are currently no committed unit/integration test files beyond setup preload.
 
 ## Git Hooks & Commit Hygiene
-
-- Husky `pre-commit` runs `bun run lint:staged`.
 
 ## When Oxlint + Oxfmt Can't Help
 

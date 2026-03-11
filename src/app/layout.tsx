@@ -5,6 +5,7 @@ import { Geist } from "next/font/google";
 import type { ReactNode } from "react";
 import { ViewTransition } from "react";
 
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { getSiteUrl } from "@/config/env";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
 import { cn } from "@/lib/utils";
@@ -52,13 +53,15 @@ export default function RootLayout({
       className={cn("font-sans", geist.variable)}
     >
       <body>
-        <Header />
-        <ViewTransition>
-          <main className="min-h-screen">{children}</main>
-        </ViewTransition>
-        <Footer />
-        <Analytics />
-        <SpeedInsights />
+        <TooltipProvider>
+          <Header />
+          <ViewTransition>
+            <main className="min-h-screen">{children}</main>
+          </ViewTransition>
+          <Footer />
+          <Analytics />
+          <SpeedInsights />
+        </TooltipProvider>
       </body>
     </html>
   );
