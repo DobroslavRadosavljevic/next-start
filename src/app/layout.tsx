@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import { Geist } from "next/font/google";
 import type { ReactNode } from "react";
 import { ViewTransition } from "react";
@@ -53,15 +54,22 @@ export default function RootLayout({
       className={cn("font-sans", geist.variable)}
     >
       <body>
-        <TooltipProvider>
-          <Header />
-          <ViewTransition>
-            <main className="min-h-screen">{children}</main>
-          </ViewTransition>
-          <Footer />
-          <Analytics />
-          <SpeedInsights />
-        </TooltipProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>
+            <Header />
+            <ViewTransition>
+              <main className="min-h-screen">{children}</main>
+            </ViewTransition>
+            <Footer />
+            <Analytics />
+            <SpeedInsights />
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
