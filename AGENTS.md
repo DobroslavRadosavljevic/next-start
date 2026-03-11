@@ -11,11 +11,12 @@ This repository currently uses Next.js 16 + React 19 with Bun, Ultracite, Sentry
 - Shared site metadata strings are in `src/constants/metadata.ts`.
 - Environment parsing/validation is in `src/config/env.ts`.
 - Runtime monitoring is configured through `src/instrumentation.ts`, `src/instrumentation-client.ts`, `sentry.server.config.ts`, and `sentry.edge.config.ts`.
+- Additional route surface includes `src/app/error.tsx`, `src/app/global-error.tsx`, `src/app/loading.tsx`, and `src/app/not-found.tsx`.
 
 ## Quick Reference
 
 - **Develop**: `bun dev`
-- **Build**: `bun build`
+- **Build**: `bun run build`
 - **Start**: `bun start`
 - **Lint**: `bun run lint` (runs `ultracite check`)
 - **Format**: `bun run format` (runs `ultracite fix`)
@@ -92,7 +93,7 @@ Write code that is accessible, performant, type-safe, and maintainable.
 ## Project Conventions
 
 - Use `getSiteUrl()` from `src/config/env.ts` for canonical/base URL generation.
-- Use font config from `src/config/fonts.ts` via `bodyFontClass`.
+- Use `Geist` from `next/font/google` in `src/app/layout.tsx` for typography.
 - Keep global layout shell in `src/app/layout.tsx` and route-specific UI close to each route.
 - If additional routes are introduced, follow `{route}/_components/page/` for route-local page components.
 
@@ -122,9 +123,13 @@ Write code that is accessible, performant, type-safe, and maintainable.
 - Test runner: Bun (`bun test`).
 - Bun preloads `src/tests/setup.ts` via `bunfig.toml`.
 - Standard patterns are supported: `*.test.ts`, `*.spec.ts`, `*_test.ts`, `*_spec.ts`.
-- There are currently no committed unit/integration test files beyond setup preload.
+- There is at least one committed API smoke test in `src/tests/unit/api-smoke.test.ts`.
+- New tests should be colocated with feature code or under `src/tests`.
 
 ## Git Hooks & Commit Hygiene
+
+- No git hooks are defined in-repo (no `.husky` or `commitlint` config present).
+- Keep commit hygiene simple and local: run `bun run format`, `bun run lint`, and `bun run typecheck` before committing.
 
 ## When Oxlint + Oxfmt Can't Help
 

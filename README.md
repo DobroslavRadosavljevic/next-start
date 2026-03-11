@@ -104,12 +104,12 @@ Open [http://localhost:3000](http://localhost:3000). 🎉
 
 Source of truth: `src/config/env.ts`.
 
-| Variable                 | Required | Purpose                                        |
-| ------------------------ | -------- | ---------------------------------------------- |
-| `NEXT_PUBLIC_SENTRY_DSN` | ✅       | Sentry DSN used by client instrumentation      |
-| `SENTRY_ORG`             | ✅       | Sentry org for source-map upload plugin         |
-| `SENTRY_PROJECT`         | ✅       | Sentry project for source-map upload           |
-| `SENTRY_AUTH_TOKEN`      | ✅       | Token used for Sentry source-map upload         |
+| Variable                 | Required | Purpose                                   |
+| ------------------------ | -------- | ----------------------------------------- |
+| `NEXT_PUBLIC_SENTRY_DSN` | ✅       | Sentry DSN used by client instrumentation |
+| `SENTRY_ORG`             | ✅       | Sentry org for source-map upload plugin   |
+| `SENTRY_PROJECT`         | ✅       | Sentry project for source-map upload      |
+| `SENTRY_AUTH_TOKEN`      | ✅       | Token used for Sentry source-map upload   |
 
 Vercel preset vars are used automatically when present:
 
@@ -127,16 +127,16 @@ Vercel preset vars are used automatically when present:
 
 ## 📦 Available scripts
 
-| Command              | Description                                             |
-| -------------------- | ------------------------------------------------------- |
-| `bun dev`            | 🟢 Start development server                             |
-| `bun build`          | 📦 Build production bundle                              |
-| `bun start`          | 🚀 Start production server                               |
+| Command              | Description                                            |
+| -------------------- | ------------------------------------------------------ |
+| `bun dev`            | 🟢 Start development server                            |
+| `bun build`          | 📦 Build production bundle                             |
+| `bun start`          | 🚀 Start production server                             |
 | `bun run lint`       | 🔍 Run `ultracite check`                               |
-| `bun run format`     | ✏️ Run `ultracite fix`                                  |
+| `bun run format`     | ✏️ Run `ultracite fix`                                 |
 | `bun run typegen`    | 🗺️ Generate typed routes                               |
-| `bun run typecheck`  | 🧠 Typecheck (`pretypecheck` runs `bun run typegen`)     |
-| `bun run test`       | ✅ Run Bun test suite (`src/tests/setup.ts` preloaded)   |
+| `bun run typecheck`  | 🧠 Typecheck (`pretypecheck` runs `bun run typegen`)   |
+| `bun run test`       | ✅ Run Bun test suite (`src/tests/setup.ts` preloaded) |
 | `bun run test:watch` | 👀 Run tests in watch mode                             |
 
 ## ✅ CI quality gate
