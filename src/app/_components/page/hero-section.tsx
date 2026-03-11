@@ -21,6 +21,7 @@ import {
   SITE_NAME,
   SITE_TAGLINE,
 } from "@/constants/metadata";
+import { MockRouteLinks } from "./mock-route-links";
 
 const starterHighlights = [
   {
@@ -264,6 +265,24 @@ export const HeroSection = async () => {
               </CardHeader>
             </Card>
           ))}
+        </section>
+
+        <section className="grid gap-4">
+          <Card className="border-border/80 bg-card/90 shadow-sm backdrop-blur">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-foreground text-2xl">
+                Routing playground
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Tap these routes to verify real Next.js navigation works across
+                mock pages.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <MockRouteLinks currentPath="/" />
+            </CardContent>
+          </Card>
         </section>
       </div>
     </div>

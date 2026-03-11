@@ -24,7 +24,7 @@ export default function Error({
   }, [router]);
 
   return (
-    <div className="bg-background text-foreground flex min-h-screen items-center justify-center">
+    <div className="bg-background text-foreground mx-auto flex min-h-screen w-full max-w-6xl items-center justify-center px-6">
       <div className="flex flex-col items-center gap-6 text-center">
         <h1 className="text-2xl font-semibold">Something went wrong</h1>
         <p className="text-muted-foreground max-w-md">

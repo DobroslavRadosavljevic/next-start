@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const Footer = () => (
   <footer className="border-border border-t py-12">
-    <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 px-6">
+    <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6">
       <div>
         <Link
           href="/"
