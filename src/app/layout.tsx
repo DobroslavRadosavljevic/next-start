@@ -1,19 +1,16 @@
-import { KuzenboProvider } from "@kuzenbo/core/provider";
-import { ToastProvider } from "@kuzenbo/notifications/ui/toast";
-import { ThemeBootstrapScript, ThemeProvider } from "@kuzenbo/theme";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { ViewTransition } from "react";
 
 import { getSiteUrl } from "@/config/env";
-import { bodyFontClass } from "@/config/fonts";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/metadata";
 
 import { Footer } from "./_components/layout/footer";
 import { Header } from "./_components/layout/header";
 
-import "./globals.css";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -43,23 +40,16 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${bodyFontClass}`}>
-        <ThemeBootstrapScript />
-        <ThemeProvider>
-          <KuzenboProvider>
-            <ToastProvider>
-              <Header />
-              <ViewTransition>
-                <main className="min-h-screen">{children}</main>
-              </ViewTransition>
-              <Footer />
-            </ToastProvider>
-          </KuzenboProvider>
-        </ThemeProvider>
+      <body>
+        <Header />
+        <ViewTransition>
+          <main className="min-h-screen">{children}</main>
+        </ViewTransition>
+        <Footer />
         <Analytics />
         <SpeedInsights />
       </body>

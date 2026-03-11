@@ -98,24 +98,11 @@ Write code that is accessible, performant, type-safe, and maintainable.
 - Keep global layout shell in `src/app/layout.tsx` and route-specific UI close to each route.
 - If additional routes are introduced, follow `{route}/_components/page/` for route-local page components.
 
-## Kuzenbo Enforcement (Repo-Wide)
+## UI Baseline
 
-- Treat Kuzenbo as the default UI system across the whole codebase.
-- Use only public Kuzenbo package surfaces for app UI/runtime work:
-  - `@kuzenbo/core/ui/*` for components
-  - `@kuzenbo/core/provider` (and `@kuzenbo/core/size` when needed) for provider/size helpers
-  - `@kuzenbo/theme` for theme runtime (`ThemeBootstrapScript`, `ThemeProvider`)
-  - `@kuzenbo/styles/recommended.css` for baseline styles
-  - `@kuzenbo/hooks` for reusable browser/state hooks
-  - `@kuzenbo/notifications/ui/toast` for toast flows
-  - `@kuzenbo/charts/ui/*` for charts
-- Keep theme + styles wiring active in app root at all times:
-  - import one prebuilt theme CSS entrypoint
-  - import `@kuzenbo/styles/recommended.css` after theme CSS
-- Prefer semantic Kuzenbo tokens/utilities instead of ad-hoc equivalents (for colors, z-index, cursor, chart colors, etc.).
-- Do not introduce non-Kuzenbo component systems or copy private internals from package `src`/`dist` files into app code.
-- If a requested component/pattern is missing from Kuzenbo exports, compose from existing Kuzenbo primitives first and explicitly document the fallback tradeoff.
-- When touching existing UI code, migrate non-Kuzenbo patterns toward Kuzenbo surfaces rather than expanding divergence.
+- Use standard React/Next.js components and Tailwind utility classes in app code.
+- Keep global styling and tokens in `src/app/globals.css`.
+- Prefer semantic, readable class names over introducing custom UI frameworks unless required by a concrete feature need.
 
 ## CI and Quality Gates
 
@@ -142,7 +129,6 @@ Write code that is accessible, performant, type-safe, and maintainable.
 ## Git Hooks & Commit Hygiene
 
 - Husky `pre-commit` runs `bun run lint:staged`.
-- Husky `commit-msg` runs Commitlint with `@commitlint/config-conventional`.
 
 ## When Oxlint + Oxfmt Can't Help
 

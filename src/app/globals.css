@@ -1,6 +1,0 @@
-@import "tailwindcss";
-@import "@kuzenbo/theme/default.css";
-@import "@kuzenbo/styles/recommended.css";
-
-@source "./**/*.{ts,tsx,mdx}";
-@source "../../node_modules/@kuzenbo/core/dist/**/*.{ts,tsx}";
