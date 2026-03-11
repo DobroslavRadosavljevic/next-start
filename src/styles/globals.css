@@ -116,13 +116,135 @@
 }
 
 @layer base {
+  /* Global baseline for token-driven borders/outlines + Firefox scrollbar defaults. */
   * {
+    /* Firefox scrollbar width + color (thumb, track). */
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    /* Keep global border/ring token alignment for element defaults. */
     @apply border-border outline-ring/50;
+    outline-color: oklch(from var(--ring) l c h / 0.5);
   }
-  body {
-    @apply bg-background text-foreground;
+
+  /* Optional tuning knobs for text-selection contrast. */
+  :root {
+    /* Use primary tokens for a stronger, high-contrast text selection highlight. */
+    --selection-background: var(--primary);
+    --selection-foreground: var(--primary-foreground);
   }
+
+  /* Root baseline: native UI color mode, font smoothing, scrolling, and gutter stability. */
   html {
-    @apply font-sans;
+    /* Hint browser-native controls/scrollbars for light theme. */
+    color-scheme: light;
+    /* Improve text rendering on macOS/iOS + WebKit/Blink. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Remove iOS tap flash for cleaner interactive polish. */
+    -webkit-tap-highlight-color: transparent;
+    /* Prevent root scroll chaining + pull-to-refresh style overscroll effects. */
+    overscroll-behavior: none;
+    /* Reserve scrollbar space (classic scrollbars) to reduce layout shifts. */
+    scrollbar-gutter: stable;
+
+    /* Global background color. */
+    background-color: var(--background);
+    /* Global foreground color. */
+    color: var(--foreground);
+  }
+
+  /* Dark mode native UI hint (when the app applies .dark on html). */
+  html.dark {
+    color-scheme: dark;
+  }
+
+  /* Avoid layout breakage from long URLs/tokens in common content containers. */
+  :where(p, li, td, th, figcaption, blockquote, pre, code) {
+    overflow-wrap: anywhere;
+  }
+
+  /* Improve readability for underlined links in prose and docs-heavy surfaces. */
+  :where(a) {
+    text-decoration-thickness: from-font;
+    text-underline-offset: 0.12em;
+  }
+
+  /* Keep native text selection aligned with semantic accent tokens. */
+  ::-moz-selection {
+    background-color: var(--selection-background);
+    color: var(--selection-foreground);
+    text-shadow: none;
+  }
+
+  /* Duplicate selection style for engines using the standard pseudo-element. */
+  ::selection {
+    background-color: var(--selection-background);
+    color: var(--selection-foreground);
+    text-shadow: none;
+  }
+
+  /* Keyboard-focus baseline: visible ring only when UA decides focus should be shown. */
+  :focus-visible {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: var(--ring);
+  }
+
+  /* Compatibility fallback for environments without :focus-visible support. */
+  @supports not selector(:focus-visible) {
+    :focus {
+      outline-style: solid;
+      outline-width: 2px;
+      outline-offset: 2px;
+      outline-color: var(--ring);
+    }
+  }
+
+  /* High-contrast mode tweak: use system highlight color for focus visibility. */
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline-color: Highlight;
+    }
+
+    /* Fallback for browsers without :focus-visible in forced-colors mode. */
+    @supports not selector(:focus-visible) {
+      :focus {
+        outline-color: Highlight;
+      }
+    }
+  }
+
+  /* Disable smooth scroll while Base UI is locking page scroll (dialogs/drawers). */
+  html[data-base-ui-scroll-locked] {
+    scroll-behavior: auto;
+  }
+
+  /* On coarse pointers, avoid overly thin Firefox scrollbars for better touch usability. */
+  @media (pointer: coarse) {
+    * {
+      scrollbar-width: auto;
+    }
+  }
+
+  /* On fine pointers, keep compact but usable WebKit scrollbar dimensions. */
+  @media (pointer: fine) {
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  /* Transparent track keeps scrollbar visuals subtle against themed backgrounds. */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Thumb uses semantic border token to stay consistent across themes. */
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
   }
 }
+
+
