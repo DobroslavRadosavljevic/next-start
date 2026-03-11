@@ -57,9 +57,11 @@
 ## UI Rules
 
 - Treat the UI system as `shadcn/base-nova + @base-ui/react + Tailwind v4`, not generic shadcn/Radix.
-- Prefer extending existing primitives in `src/components/ui` over adding another component framework or parallel abstraction layer.
+- Treat shadcn-generated files under `src/components/**` as locked vendor code. Do not update them directly; if you need different behavior or styling, compose around them in `src/app/_components/**` or create app-local wrappers outside the generated shadcn surface.
 - Keep app-specific composition in `src/app/_components/**`; keep reusable primitives in `src/components/ui/**`.
 - Reuse `cn` from `src/lib/utils.ts` and existing `cva` / `data-slot` patterns instead of inventing new class composition helpers.
+- Do not store Tailwind class strings in standalone constants just to reuse them. Keep class names inline in JSX so Tailwind IntelliSense remains available; if a pattern truly needs reuse, promote it into a shared primitive or variant helper instead.
+- In app-owned code, do not use Tailwind color primitives like `bg-slate-950`, `text-gray-600`, raw hex colors, or ad hoc `rgba(...)` color values. Use only the theme-backed shadcn/Tailwind tokens defined in `src/styles/globals.css`, such as `bg-background`, `text-foreground`, `border-border`, `bg-card`, `bg-primary`, and related token utilities.
 - Keep design tokens, theme variables, and Tailwind theme wiring in `src/styles/globals.css`, not scattered through route files.
 - Font baseline is `Geist` from `next/font/google` in `src/app/layout.tsx`.
 - `src/components/ui/sonner.tsx` depends on `next-themes`, but the current root layout does not mount a `ThemeProvider` or `Toaster`. Do not assume toast/theme wiring is active unless you wire it intentionally.

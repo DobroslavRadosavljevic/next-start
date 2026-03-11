@@ -24,24 +24,24 @@ export default function Error({
   }, [router]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900">
+    <div className="bg-background text-foreground flex min-h-screen items-center justify-center">
       <div className="flex flex-col items-center gap-6 text-center">
         <h1 className="text-2xl font-semibold">Something went wrong</h1>
-        <p className="max-w-md text-slate-600">
+        <p className="text-muted-foreground max-w-md">
           An unexpected error occurred. Please try again.
         </p>
         <div className="flex gap-3">
           <button
             type="button"
             onClick={handleRetry}
-            className="rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-5 py-3 text-sm font-medium transition-colors"
           >
             Try again
           </button>
           <button
             type="button"
             onClick={handleGoHome}
-            className="rounded-full border border-gray-200 px-5 py-3 text-sm font-medium transition-colors hover:bg-slate-100"
+            className="border-border hover:bg-accent hover:text-accent-foreground bg-background rounded-full border px-5 py-3 text-sm font-medium transition-colors"
           >
             Go to homepage
           </button>
