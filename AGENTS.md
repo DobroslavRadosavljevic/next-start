@@ -1,6 +1,7 @@
 # Ultracite + Next Start Repository Guide
 
 This repository currently uses Next.js 16 + React 19 with Bun, Ultracite, Sentry, and an Elysia/Eden API layer.
+The UI stack is intentionally constrained to Shadcn UI components with Tailwind CSS styling throughout the codebase.
 
 ## Scope
 
@@ -96,12 +97,13 @@ Write code that is accessible, performant, type-safe, and maintainable.
 - Use `Geist` from `next/font/google` in `src/app/layout.tsx` for typography.
 - Keep global layout shell in `src/app/layout.tsx` and route-specific UI close to each route.
 - If additional routes are introduced, follow `{route}/_components/page/` for route-local page components.
+- Use Shadcn UI as the sole component system and Tailwind CSS for all app styling. Avoid introducing other UI frameworks or custom component abstractions unless explicitly approved.
 
 ## UI Baseline
 
-- Use standard React/Next.js components and Tailwind utility classes in app code.
-- Keep global styling and tokens in `src/app/globals.css`.
-- Prefer semantic, readable class names over introducing custom UI frameworks unless required by a concrete feature need.
+- Use Shadcn UI components as the default implementation for all app UI components.
+- Use Tailwind utility classes for styling; keep global styling and design tokens in `src/styles/globals.css`.
+- Do not introduce additional UI component frameworks; prefer extending existing Shadcn primitives and Tailwind patterns when feature needs require customization.
 
 ## CI and Quality Gates
 
@@ -117,6 +119,10 @@ Write code that is accessible, performant, type-safe, and maintainable.
   - `bun run typecheck`
   - `bun run test`
   - `bun run build`
+
+## Reference Documentation
+
+- For shadcn/ui component patterns and conventions, use this docs index: https://ui.shadcn.com/llms.txt
 
 ## Testing Notes
 
