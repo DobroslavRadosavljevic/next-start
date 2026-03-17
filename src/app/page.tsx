@@ -1,5 +1,5 @@
-import { HeroSection } from "./_components/page/hero-section";
+import { EmptyHomePage } from "./_components/page/empty-home-page";
 
 export default function Home() {
-  return <HeroSection />;
+  return <EmptyHomePage />;
 }
