@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist } from "next/font/google";
 import type { ReactNode } from "react";
-import { ViewTransition } from "react";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { getSiteUrl } from "@/config/env";
@@ -62,9 +61,7 @@ export default function RootLayout({
         >
           <TooltipProvider>
             <Header />
-            <ViewTransition>
-              <main className="min-h-screen">{children}</main>
-            </ViewTransition>
+            <main className="min-h-screen">{children}</main>
             <Footer />
             <Analytics />
             <SpeedInsights />

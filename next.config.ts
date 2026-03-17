@@ -11,7 +11,6 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
 
   experimental: {
-    viewTransition: true,
     // Persist Turbopack cache to .next for faster dev and builds
     turbopackFileSystemCacheForDev: true,
     turbopackFileSystemCacheForBuild: true,
@@ -71,5 +70,5 @@ export default withContentCollections(
         removeDebugLogging: true,
       },
     },
-  }),
+  })
 );
